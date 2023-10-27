@@ -38,4 +38,17 @@ public class StudentService {
         }
         studentRepository.deleteById(studentId);
     }
+
+    public void updateStudent(Student student) {
+        Optional<Student> studentOptional = studentRepository
+                .findStudentById(student.getId());
+        //boolean exists = studentRepository.existsById(student.getId());
+        if (!studentOptional.isPresent()) {
+            throw new IllegalStateException("id doesn't exist");
+        }
+        studentOptional.get().setName(student.getName());
+        studentOptional.get().setEmail(student.getEmail());
+
+    }
+
 }
